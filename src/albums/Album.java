@@ -6,7 +6,15 @@ public class Album {
     private Genre genre; //enum class; Classical, Country, Jazz, Pop, Unknown
     private Date releaseDate;
     private boolean isAvailable;
-//...
+
+    public Album(String title, String artist, Genre genre, Date releaseDate) {
+        this.title = title;
+        this.artist = artist;
+        this.genre = genre;
+        this.releaseDate = releaseDate;
+    }
+
+    //...
     @Override
     public boolean equals(Object obj) {return true;}
 //...
