@@ -14,6 +14,13 @@ public class Album {
         this.releaseDate = releaseDate;
     }
 
+    public Album() {
+        this.title = null;
+        this.artist = null;
+        this.genre = null;
+        this.releaseDate = null;
+    }
+
     //...
     @Override
     public boolean equals(Object obj) {return true;}

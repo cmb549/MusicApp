@@ -11,7 +11,7 @@ public class CollectionManager {
             String input = scanner.nextLine();
             StringTokenizer st = new StringTokenizer(input, ",");
             int count = 0;
-            String command = "", title = "", artist = "", genre = "", releaseDate = "";
+            String command = "", title = "", artist = "", albumGenre = "", releaseDate = "";
             while (st.hasMoreTokens()) {
                 if (count == 0) {
                     command = st.nextToken();
@@ -29,34 +29,44 @@ public class CollectionManager {
                 if (count == 2)
                     artist = st.nextToken();
                 if (count == 3)
-                    genre = st.nextToken();
+                    albumGenre = st.nextToken();
                 if (count == 4)
                     releaseDate = st.nextToken();
                 count++;
             }
-            processCommand(command, title, artist, genre, releaseDate);
+            processCommand(command, title, artist, albumGenre, releaseDate);
         }
     }
 
-    public boolean isCommandValid (String command) {
+    private boolean isCommandValid (String command) {
         if (command.equals("A") || command.equals("D")  || command.equals("L")  || command.equals("R")  || command.equals("P")  || command.equals("PD")  || command.equals("PG")  || command.equals("Q"))
             return true;
         else
             return false;
     }
 
-    public void processCommand(String command, String title, String artist, String genre, String releaseDate) {
-        if (command.equals("A") || command.equals("D")  || command.equals("L")  || command.equals("R"))
-            Date myDate = new SimpleDateFormat("mm/dd/yyyy", Locale.ENGLISH).parse(releaseDate);
-            Album myAlbum = new Album(title, artist, genre, myDate);
-        if (command.equals("A"))
-            myCollection.add(album);
+    private void processCommand(String command, String title, String artist, String albumGenre, String releaseDate) {
+        Album myAlbum = new Album();
+        Date myDate = null;
+        if (command.equals("A") || command.equals("D")  || command.equals("L")  || command.equals("R")) {
+            if (command.equals("A"))
+                if (releaseDate != null)
+                    myDate = new Date(releaseDate);
+            Genre myGenre = Genre.valueOf(albumGenre);
+            myAlbum = new Album(title, artist, myGenre, myDate);
+        }
+        if (command.equals("A")) {
+            myDate = new Date(releaseDate);
+            Genre myGenre = Genre.valueOf(albumGenre);
+            myAlbum = new Album(title, artist, myGenre, myDate);
+            myCollection.add(myAlbum);
+        }
         else if (command.equals("D"))
-            myCollection.remove(album);
+            myCollection.remove(myAlbum);
         else if (command.equals("L"))
-            myCollection.lendingOut(album);
+            myCollection.lendingOut(myAlbum);
         else if (command.equals("R"))
-            myCollection.returnAlbum(album);
+            myCollection.returnAlbum(myAlbum);
         else if (command.equals("P"))
             myCollection.print();
         else if (command.equals("PD"))
