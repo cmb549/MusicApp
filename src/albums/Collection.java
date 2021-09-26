@@ -27,9 +27,14 @@ public class Collection {
         albums = albumsToKeep; //changes pointer
     } //increase the capacity of the array list by 4
     public boolean add(Album album) {
+        if(find(album) != -1) {
+            System.out.println(album.toString() + " >> is already in the collection.");
+            return false;
+        }
         for(int i = 0; i < albums.length; i++){
             if(albums[i] == null){//empty position
                 albums[i] = album;//save at that position
+                System.out.println(albums[i].toString() + " >> added.");
                 return true;
             }
         }

@@ -49,11 +49,11 @@ public class CollectionManager {
     }
 
     private void processCommand(String command, String title, String artist, String albumGenre, String releaseDate) {
-        Genre genre = Genre.valueOf(albumGenre);
         //if (genre.   contains(albumGenre.toLowerCase())) {
         //    match = true;
         Album myAlbum = new Album();
         if (command.equals("A")) {
+            Genre genre = Genre.valueOf(albumGenre);
             Date date = new Date(releaseDate);
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
@@ -62,30 +62,29 @@ public class CollectionManager {
             myAlbum.setIsAvailable(true);
             myCollection.add(myAlbum);
         }
-        if (command.equals("D")) {
+        else if (command.equals("D")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
             myCollection.remove(myAlbum);
         }
-        if (command.equals("L")) {
+        else if (command.equals("L")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
             if (myAlbum.getIsAvailable())
                 myCollection.lendingOut(myAlbum);
-            myAlbum.toString();
         }
-        if (command.equals("R")) {
+        else if (command.equals("R")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
             if (!myAlbum.getIsAvailable())
                 myCollection.returnAlbum(myAlbum);
             myAlbum.toString();
         }
-        if (command.equals("P"))
+        else if (command.equals("P"))
             myCollection.print();
-        if (command.equals("PD"))
+        else if (command.equals("PD"))
             myCollection.printByReleaseDate();
-        if (command.equals("PG"))
+        else if (command.equals("PG"))
             myCollection.printByGenre();
         }
 }

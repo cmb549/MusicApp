@@ -75,7 +75,7 @@ public class Album {
     @Override
     public boolean equals(Object obj) {
         Album newAlbum = (Album)obj;
-        if (newAlbum.title == this.title && newAlbum.artist == this.artist)
+        if (newAlbum.title.equals(this.title) && newAlbum.artist.equals(this.artist))
             return true;
         else
             return false;
@@ -88,7 +88,7 @@ public class Album {
             avail = "is available";
         else
             avail = "is not available";
-        return title + "::" + artist + "::" + genre.name() + "::" + releaseDate.toString() + avail;
+        return title + "::" + artist + "::" + genre.name() + "::" + releaseDate.toString() + "::" + avail;
     }
 
 }
