@@ -28,13 +28,11 @@ public class Collection {
     } //increase the capacity of the array list by 4
     public boolean add(Album album) {
         if(find(album) != -1) {
-            System.out.println(album.toString() + " >> is already in the collection.");
             return false;
         }
         for(int i = 0; i < albums.length; i++){
             if(albums[i] == null){//empty position
                 albums[i] = album;//save at that position
-                System.out.println(albums[i].toString() + " >> added.");
                 return true;
             }
         }
@@ -49,23 +47,32 @@ public class Collection {
         }
         album = albums[index];
         albums[index] = null;
-        System.out.println(album.toString() + " >> deleted.");
+        //System.out.println(album.toString() + " >> deleted.");
         return true;
     }
+
     public boolean lendingOut(Album album) {
         int index = find(album);
-        if(index == -1){
+        if(index == -1) {
             return false;
         }
-        return albums[index].rentOut();
+        boolean returnVal = albums[index].rentOut();
+        if (returnVal)
+            System.out.println(albums[index].toString() + " >> lending out and set to not available.");
+        return returnVal;
+        //return albums[index].rentOut();
+
     } //set to not available
+
     public boolean returnAlbum(Album album) {
         int index = find(album);
-        if(index == -1){
-            return false;
+        if(index == -1) {
+            return false; //System.out.println(album.toString() + " >> return cannot be completed.");
         }
+        System.out.println(album.toString() + " >> returning and set to available.");
         return albums[index].returnAlbum();
     } //set to available
+
     public void print() {
         System.out.println("*List of albums in the collection.");
         for(int i = 0; i < albums.length; i++){

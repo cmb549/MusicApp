@@ -60,25 +60,33 @@ public class CollectionManager {
             myAlbum.setGenre(genre);
             myAlbum.setReleaseDate(date);
             myAlbum.setIsAvailable(true);
-            myCollection.add(myAlbum);
+            boolean returnVal = myCollection.add(myAlbum);
+            if (returnVal)
+                System.out.println(myAlbum.toString() + " >> added.");
+            else
+                System.out.println(myAlbum.toString() + " >> is already in the collection.");
         }
         else if (command.equals("D")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
-            myCollection.remove(myAlbum);
+            boolean returnVal = myCollection.remove(myAlbum);
+            if (returnVal)
+                System.out.println(myAlbum.toString() + " >> deleted.");
+            else
+                System.out.println(myAlbum.toString() + " >> is not in the collection.");
         }
         else if (command.equals("L")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
-            if (myAlbum.getIsAvailable())
+            //if (myAlbum.getIsAvailable())
                 myCollection.lendingOut(myAlbum);
         }
         else if (command.equals("R")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
-            if (!myAlbum.getIsAvailable())
+            //if (!myAlbum.getIsAvailable())
                 myCollection.returnAlbum(myAlbum);
-            myAlbum.toString();
+            //myAlbum.toString();
         }
         else if (command.equals("P"))
             myCollection.print();

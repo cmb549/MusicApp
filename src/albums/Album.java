@@ -17,12 +17,12 @@ public class Album {
         this.isAvailable = true;
     }
 
-    public Album() {
-        this.title = null;
-        this.artist = null;
-        this.genre = null;
-        this.releaseDate = null;
-        this.isAvailable = Boolean.parseBoolean(null);
+   public Album() {
+        //this.title = null;
+        //this.artist = null;
+        //this.genre = null;
+        //this.releaseDate = null;
+        //this.isAvailable = Boolean.parseBoolean(null);
     }
 
     public String getTitle() {
@@ -88,7 +88,16 @@ public class Album {
             avail = "is available";
         else
             avail = "is not available";
-        return title + "::" + artist + "::" + genre.name() + "::" + releaseDate.toString() + "::" + avail;
+        String myGenre="";
+        String myRelDate="";
+        if (genre!=null){
+            myGenre = genre.name();
+        }
+        if (releaseDate!=null){
+            myRelDate = releaseDate.toString();
+        }
+        //return title + "::" + artist + "::" + genre.name() + "::" + releaseDate.toString() + "::" + avail;
+        return title + "::" + artist + "::" + myGenre + "::" + myRelDate + "::" + avail;
     }
 
 }
