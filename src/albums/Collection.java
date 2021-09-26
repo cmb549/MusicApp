@@ -47,7 +47,9 @@ public class Collection {
         if(index == -1){
             return false;
         }
+        album = albums[index];
         albums[index] = null;
+        System.out.println(album.toString() + " >> deleted.");
         return true;
     }
     public boolean lendingOut(Album album) {
@@ -65,14 +67,14 @@ public class Collection {
         return albums[index].returnAlbum();
     } //set to available
     public void print() {
-        System.out.println("*Start of Album List*");
+        System.out.println("*List of albums in the collection.");
         for(int i = 0; i < albums.length; i++){
             if(albums[i] == null){//if position is null then skip
                 continue;
             }
             System.out.println(albums[i]);
         }
-        System.out.println("*End of Album List*");
+        System.out.println("*End of list");
     } //display the list without specifying the order
     public void printByReleaseDate() {
        /*Alums[] copy = new Album[albums.length];
