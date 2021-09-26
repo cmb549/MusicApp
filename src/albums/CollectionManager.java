@@ -12,11 +12,13 @@ public class CollectionManager {
             StringTokenizer st = new StringTokenizer(input, ",");
             int count = 0;
             String command = "", title = "", artist = "", albumGenre = "", releaseDate = "";
+            boolean commandValid = true;
             while (st.hasMoreTokens()) {
                 if (count == 0) {
                     command = st.nextToken();
                     if (!isCommandValid(command)) {
                         System.out.println("Invalid command!");
+                        commandValid = false;
                         break;
                     }
                     else if (command.equals("Q")) {
@@ -34,7 +36,8 @@ public class CollectionManager {
                     releaseDate = st.nextToken();
                 count++;
             }
-            processCommand(command, title, artist, albumGenre, releaseDate);
+            if (commandValid)
+                processCommand(command, title, artist, albumGenre, releaseDate);
         }
     }
 
@@ -46,32 +49,43 @@ public class CollectionManager {
     }
 
     private void processCommand(String command, String title, String artist, String albumGenre, String releaseDate) {
+        Genre genre = Genre.valueOf(albumGenre);
+        //if (genre.   contains(albumGenre.toLowerCase())) {
+        //    match = true;
         Album myAlbum = new Album();
-        Date myDate = null;
-        if (command.equals("A") || command.equals("D")  || command.equals("L")  || command.equals("R")) {
-            if (command.equals("A"))
-                if (releaseDate != null)
-                    myDate = new Date(releaseDate);
-            Genre myGenre = Genre.valueOf(albumGenre);
-            myAlbum = new Album(title, artist, myGenre, myDate);
-        }
         if (command.equals("A")) {
-            myDate = new Date(releaseDate);
-            Genre myGenre = Genre.valueOf(albumGenre);
-            myAlbum = new Album(title, artist, myGenre, myDate);
+            Date date = new Date(releaseDate);
+            myAlbum.setTitle(title);
+            myAlbum.setArtist(artist);
+            myAlbum.setGenre(genre);
+            myAlbum.setReleaseDate(date);
+            myAlbum.setIsAvailable(true);
             myCollection.add(myAlbum);
         }
-        else if (command.equals("D"))
+        if (command.equals("D")) {
+            myAlbum.setTitle(title);
+            myAlbum.setArtist(artist);
             myCollection.remove(myAlbum);
-        else if (command.equals("L"))
-            myCollection.lendingOut(myAlbum);
-        else if (command.equals("R"))
-            myCollection.returnAlbum(myAlbum);
-        else if (command.equals("P"))
+        }
+        if (command.equals("L")) {
+            myAlbum.setTitle(title);
+            myAlbum.setArtist(artist);
+            if (myAlbum.getIsAvailable())
+                myCollection.lendingOut(myAlbum);
+            myAlbum.toString();
+        }
+        if (command.equals("R")) {
+            myAlbum.setTitle(title);
+            myAlbum.setArtist(artist);
+            if (!myAlbum.getIsAvailable())
+                myCollection.returnAlbum(myAlbum);
+            myAlbum.toString();
+        }
+        if (command.equals("P"))
             myCollection.print();
-        else if (command.equals("PD"))
+        if (command.equals("PD"))
             myCollection.printByReleaseDate();
-        else if (command.equals("PG"))
+        if (command.equals("PG"))
             myCollection.printByGenre();
-    }
+        }
 }

@@ -1,5 +1,7 @@
 package albums;
 
+import sun.awt.windows.ThemeReader;
+
 public class Album {
     private String title;
     private String artist;
@@ -12,6 +14,7 @@ public class Album {
         this.artist = artist;
         this.genre = genre;
         this.releaseDate = releaseDate;
+        this.isAvailable = true;
     }
 
     public Album() {
@@ -19,6 +22,7 @@ public class Album {
         this.artist = null;
         this.genre = null;
         this.releaseDate = null;
+        this.isAvailable = Boolean.parseBoolean(null);
     }
 
     public String getTitle() {
@@ -45,6 +49,27 @@ public class Album {
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
+    public void setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+    public boolean getIsAvailable() {
+        return isAvailable;
+    }
+    public boolean rentOut() {
+        if(!isAvailable) { // if unavailable
+            return false;
+        }
+        isAvailable = false;
+        return true;
+    }
+
+    public boolean returnAlbum() {
+        if(isAvailable) { // if available
+            return false;
+        }
+        isAvailable = true;
+        return true;
+    }
 
     //...
     @Override
@@ -65,4 +90,5 @@ public class Album {
             avail = "is not available";
         return title + "::" + artist + "::" + genre.name() + "::" + releaseDate.toString() + avail;
     }
+
 }
