@@ -2,8 +2,18 @@ package albums;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/**
+ This is the user interface class that handles user input and output for managing albums in a collection.
+ It allows a user to add/remove albums to/from a collection and set the availability of lending/returning the albums.
+ It also allows a user to display the albums sorted in different ways.
+ @author Ria Shah, Christian Bermudez
+ */
 public class CollectionManager {
     Collection myCollection = new Collection();
+
+    /**
+     This method uses a while loop to continuously read the command lines from the console.
+     */
     public void run() {
         System.out.println("Collection Manager starts running.");
         while (true) {
@@ -41,6 +51,12 @@ public class CollectionManager {
         }
     }
 
+    /**
+     This method checks if the command the user inputted is valid.
+     There are 8 types of commands which support different functionalities.
+     @param command the command to be executed
+     @return true if command is valid, false otherwise.
+     */
     private boolean isCommandValid (String command) {
         if (command.equals("A") || command.equals("D")  || command.equals("L")  || command.equals("R")  || command.equals("P")  || command.equals("PD")  || command.equals("PG")  || command.equals("Q"))
             return true;
@@ -48,15 +64,17 @@ public class CollectionManager {
             return false;
     }
 
+    /**
+     This method processes the valid command which the user inputted.
+     @param command the command to be executed
+     @return true if command is valid, false otherwise.
+     */
     private void processCommand(String command, String title, String artist, String albumGenre, String releaseDate) {
-        //if (genre.   contains(albumGenre.toLowerCase())) {
-        //    match = true;
         Album myAlbum = new Album();
         if (command.equals("A")) {
             Date date = new Date(releaseDate);
             Genre genre;
             if (date.isValid()) {
-                //if ((albumGenre.equals(Genre.Classical)) || (albumGenre.equals(Genre.Country)) || (albumGenre.equals(Genre.Jazz)) || (albumGenre.equals(Genre.Pop))) {
                 if (albumGenre.equalsIgnoreCase(String.valueOf(Genre.Classical)))
                     genre = Genre.Classical;
                 else if (albumGenre.equalsIgnoreCase(String.valueOf(Genre.Country)))
@@ -65,8 +83,6 @@ public class CollectionManager {
                     genre = Genre.Jazz;
                 else if (albumGenre.equalsIgnoreCase(String.valueOf(Genre.Pop)))
                     genre = Genre.Pop;
-                    //genre = Genre.valueOf(albumGenre);
-                //}
                 else
                     genre = Genre.Unknown;
                 myAlbum.setTitle(title);
@@ -95,7 +111,6 @@ public class CollectionManager {
         else if (command.equals("L")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
-            //if (myAlbum.getIsAvailable())
             boolean returnVal = myCollection.lendingOut(myAlbum);
             if (returnVal)
                 System.out.println(myAlbum.toString() + " >> lending out and set to not available.");
@@ -105,13 +120,11 @@ public class CollectionManager {
         else if (command.equals("R")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
-            //if (!myAlbum.getIsAvailable())
             boolean returnVal = myCollection.returnAlbum(myAlbum);
             if (returnVal)
                 System.out.println(myAlbum.toString() + " >> returning and set to available.");
             else
                 System.out.println(myAlbum.toString() + " >> return cannot be completed.");
-            //myAlbum.toString();
         }
         else if (command.equals("P")) {
             System.out.println("*List of albums in the collection.");

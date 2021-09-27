@@ -3,14 +3,19 @@ package albums;
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
-/** This class defines the Date abstract data type with year, month, and day. ...*/
+/**
+ This class defines the Date abstract data type with year, month, and day.
+ @author Ria Shah, Christian Bermudez
+ */
 public class Date implements Comparable<Date> {
     private int year;
     private int month;
     private int day;
 
     /**
-     * This is a parameterized constructor that takes a string in a form of "mm/dd/yyyy" and creates a Date object
+     This is a parameterized constructor that takes a string in a form of "mm/dd/yyyy" and creates a Date object
+     @param date the date of the album
+     @return true if person was deleted, false otherwise.
      */
     public Date(String date) { //take “mm/dd/yyyy” and create a albums.Date object
         StringTokenizer st = new StringTokenizer(date, "/");
@@ -24,11 +29,10 @@ public class Date implements Comparable<Date> {
      */
     public Date() { //create an object with today’s date (see Calendar class)
         Calendar cal = java.util.Calendar.getInstance();
-        month = cal.get(Calendar.MONTH)+1;
+        month = cal.get(Calendar.MONTH) + 1;
         day = cal.get(Calendar.DAY_OF_MONTH);
         year = cal.get(Calendar.YEAR);
     }
-
 
     /**
      * Getting the day of the Date object. ...
@@ -50,7 +54,6 @@ public class Date implements Comparable<Date> {
     public int getYear() {
         return year;
     }
-
 
     /**
      * This method overrides the compareTo method and compares 2 dates.
@@ -155,14 +158,14 @@ public class Date implements Comparable<Date> {
         return isValidDay(day) && isValidMonth(month) && year >= 1980;
     }
     /** Returning the textual representation of a Date object in the form of "mm/dd/yyyy". */
-    public String toString(){
+    public String toString() {
         return Integer.toString(month)+ "/" + Integer.toString(day) + "/" + Integer.toString(year);
     }
 
     /** Checking if two dates are the same. ...*/
     @Override
-    public boolean equals (Object obj){
-        if (obj instanceof Date){
+    public boolean equals (Object obj) {
+        if (obj instanceof Date) {
             return this.compareTo((Date) obj) == 0;
         }
         else {
@@ -171,7 +174,7 @@ public class Date implements Comparable<Date> {
     }
 
     /** Testbed main for the Date class ...*/
-    public static void main (String[]args){
+    public static void main (String[]args) {
         //test case #1, a date with the year before 1980 should be invalid.
         Date date = new Date("11/1/1979");
         boolean result = date.isValid();

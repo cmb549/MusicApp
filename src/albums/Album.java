@@ -1,7 +1,9 @@
 package albums;
 
-import sun.awt.windows.ThemeReader;
-
+/**
+ This class defines the abstract data type Album, which encapsulates the data fields and methods of an album.
+ @author Ria Shah, Christian Bermudez
+ */
 public class Album {
     private String title;
     private String artist;
@@ -94,14 +96,7 @@ public class Album {
     //...
     @Override
     public String toString() {
-        String avail;
         String retString = title + "::" + artist;
-        /*
-        if (isAvailable)
-            avail = "is available";
-        else
-            avail = "is not available";
-         */
         String myGenre = "";
         String myRelDate = "";
         if (genre != null) {
