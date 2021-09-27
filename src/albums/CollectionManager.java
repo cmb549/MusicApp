@@ -102,5 +102,5 @@ public class CollectionManager {
             myCollection.printByReleaseDate();
         else if (command.equals("PG"))
             myCollection.printByGenre();
-        }
+    }
 }
