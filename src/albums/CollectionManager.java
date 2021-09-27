@@ -83,7 +83,7 @@ public class CollectionManager {
             if (returnVal)
                 System.out.println(myAlbum.toString() + " >> lending out and set to not available.");
             else
-                System.out.println(myAlbum.toString() + " >> is not in the collection.");
+                System.out.println(myAlbum.toString() + " >> is not available");
         }
         else if (command.equals("R")) {
             myAlbum.setTitle(title);

@@ -69,7 +69,6 @@ public class Collection {
         if(index == -1) {
             return false; //System.out.println(album.toString() + " >> return cannot be completed.");
         }
-        System.out.println(album.toString());
         return albums[index].returnAlbum();
     } //set to available
 
@@ -88,30 +87,53 @@ public class Collection {
         }
         System.out.println("*End of list");
     } //display the list without specifying the order
-    public void printByReleaseDate() {
+    public void printByReleaseDate1() {
        /*Alums[] copy = new Album[albums.length];
        for(int i = 0; i < copy.length ; i++){
           copy[i] = albums[i];
         }*/ // if we care about order after printing
         int n = albums.length;
-        for(int i = 0; i < n - 1; i++){
-            for(int j = 0; j < n - i - 1; j++){
-                if(albums[j] == null){
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (albums[j] == null) {
                     Album temp = albums[j];
-                    albums[j] = albums[j+1];
-                    albums[j+1] = temp; //swap albums[j] and albums[j+1]
+                    albums[j] = albums[j + 1];
+                    albums[j + 1] = temp; //swap albums[j] and albums[j+1]
                 }
-                if(albums[j].getReleaseDate().compareTo(albums[j+1].getReleaseDate()) == -1){
+                if (albums[j].getReleaseDate().compareTo(albums[j + 1].getReleaseDate()) == -1) {
                     //looking for albums[j] > albums[j+1]
                     //             date(j+1) > this (j) ==> return 1
                     //        date(j+1) < this (j) ==> return -1
                     Album temp = albums[j];
-                    albums[j] = albums[j+1];
-                    albums[j+1] = temp; //swap albums[j] and albums[j+1]
+                    albums[j] = albums[j + 1];
+                    albums[j + 1] = temp; //swap albums[j] and albums[j+1]
                 }
             }
         }
         print();
+    }
+
+    public void printByReleaseDate() {
+   /*Alums[] copy = new Album[albums.length];
+   for(int i = 0; i < copy.length ; i++){
+      copy[i] = albums[i];
+    }*/ // if we care about order after printing
+        if (numAlbums == 0) {
+            print();
+            return;
+        }
+        for (int i = 0; i < numAlbums; i++) {
+            int j = i;
+            while (j > 0 && albums[j - 1].getReleaseDate().compareTo(albums[j].getReleaseDate()) > 0) {
+                // comparing release date of previous album to that of the current album
+                System.out.println(albums[j - 1]);
+                Album temp = albums[j - 1];
+                albums[j - 1] = albums[j];
+                albums[j] = temp;
+                j--;
+            }
+            print();
+        }
     }
 
     private boolean sortGenre(Genre first, Genre second){//return true if first > second
