@@ -170,7 +170,7 @@ public class Date implements Comparable<Date> {
         }
     }
 
-    /** Tested main for the Date class ...*/
+    /** Testbed main for the Date class ...*/
     public static void main (String[]args){
         //test case #1, a date with the year before 1980 should be invalid.
         Date date = new Date("11/1/1979");

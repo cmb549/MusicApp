@@ -73,7 +73,7 @@ public class Collection {
     } //set to available
 
     public void print() {
-        System.out.println("*List of albums in the collection.");
+        //System.out.println("*List of albums in the collection.");
         for(int i = 0; i < albums.length; i++){
             if(albums[i] == null){//if position is null then skip
                 continue;
@@ -85,13 +85,14 @@ public class Collection {
                 avail = "is not available";
             System.out.println(albums[i]+"::"+avail);
         }
-        System.out.println("*End of list");
+        //System.out.println("*End of list");
     } //display the list without specifying the order
+    /*
     public void printByReleaseDate1() {
        /*Alums[] copy = new Album[albums.length];
        for(int i = 0; i < copy.length ; i++){
           copy[i] = albums[i];
-        }*/ // if we care about order after printing
+        } // if we care about order after printing
         int n = albums.length;
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
@@ -112,28 +113,35 @@ public class Collection {
         }
         print();
     }
-
+*/
     public void printByReleaseDate() {
-   /*Alums[] copy = new Album[albums.length];
-   for(int i = 0; i < copy.length ; i++){
-      copy[i] = albums[i];
-    }*/ // if we care about order after printing
-        if (numAlbums == 0) {
-            print();
-            return;
-        }
-        for (int i = 0; i < numAlbums; i++) {
-            int j = i;
-            while (j > 0 && albums[j - 1].getReleaseDate().compareTo(albums[j].getReleaseDate()) > 0) {
-                // comparing release date of previous album to that of the current album
-                System.out.println(albums[j - 1]);
-                Album temp = albums[j - 1];
-                albums[j - 1] = albums[j];
-                albums[j] = temp;
-                j--;
+        //System.out.println("*Album collection by the release dates.");
+        int n = albums.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+/*
+                if (albums[j] == null) {
+                    Album temp = albums[j];
+                    albums[j] = albums[j + 1];
+                    albums[j + 1] = temp; //swap albums[j] and albums[j+1]
+                }
+*/
+                if ((albums[j] == null)) {
+                    continue;
+                }
+                if ((albums[i] == null)) {
+                    break;
+                }
+                //if (albums[j].getReleaseDate().compareTo(albums[j + 1].getReleaseDate()) == -1) {
+                if (albums[i].getReleaseDate().compareTo(albums[j].getReleaseDate()) < 0) {
+                    Album temp = albums[i];
+                    albums[i] = albums[j];
+                    albums[j] = temp; //swap albums[j] and albums[j+1]
+                }
             }
-            print();
         }
+        print();
+        //System.out.println("*End of list");
     }
 
     private boolean sortGenre(Genre first, Genre second){//return true if first > second
@@ -173,20 +181,47 @@ public class Collection {
         }
     }
 
+    /*
     public void printByGenre() {
-        int n = albums.length;
+        if (numAlbums == 0) {
+            System.out.println("The collection is empty!");
+        }
+        int n = numAlbums;
         for(int i = 0; i < n - 1; i++){
-            for(int j = 0; j < n - i - 1; j++){
+            for(int j = 1; j < n - i - 1; j++){
                 if(albums[j] == null){
                     Album temp = albums[j];
                     albums[j] = albums[j+1];
                     albums[j+1] = temp; //swap albums[j] and albums[j+1]
                 }
-                if(sortGenre(albums[j].getGenre(), albums[j+1].getGenre())){
-                    //using private method above compares genres
-                    Album temp = albums[j];
-                    albums[j] = albums[j+1];
-                    albums[j+1] = temp; //swap albums[j] and albums[j+1]
+                else {
+                    if(!sortGenre(albums[j].getGenre(), albums[j+1].getGenre())){
+                        //using private method above compares genres
+                        Album temp = albums[j];
+                        albums[j] = albums[j+1];
+                        albums[j+1] = temp; //swap albums[j] and albums[j+1]
+                    }
+                }
+            }
+        }
+        print();
+    }
+     */
+
+    public void printByGenre() {
+        int n = albums.length;
+        for (int i = 0; i < n; i++) {
+            if ((albums[i] == null)) {
+                continue;
+            }
+            for (int j = i + 1; j < n; j++) {
+                if ((albums[j] == null)) {
+                    continue;
+                }
+                if (albums[i].getGenre().compareTo(albums[j].getGenre()) > 0) {
+                    Album temp = albums[i];
+                    albums[i] = albums[j];
+                    albums[j] = temp; //swap albums[j] and albums[j+1]
                 }
             }
         }

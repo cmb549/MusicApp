@@ -53,18 +53,35 @@ public class CollectionManager {
         //    match = true;
         Album myAlbum = new Album();
         if (command.equals("A")) {
-            Genre genre = Genre.valueOf(albumGenre);
             Date date = new Date(releaseDate);
-            myAlbum.setTitle(title);
-            myAlbum.setArtist(artist);
-            myAlbum.setGenre(genre);
-            myAlbum.setReleaseDate(date);
-            myAlbum.setIsAvailable(true);
-            boolean returnVal = myCollection.add(myAlbum);
-            if (returnVal)
-                System.out.println(myAlbum.toString() + "::is available >> added.");
+            Genre genre;
+            if (date.isValid()) {
+                //if ((albumGenre.equals(Genre.Classical)) || (albumGenre.equals(Genre.Country)) || (albumGenre.equals(Genre.Jazz)) || (albumGenre.equals(Genre.Pop))) {
+                if (albumGenre.equalsIgnoreCase(String.valueOf(Genre.Classical)))
+                    genre = Genre.Classical;
+                else if (albumGenre.equalsIgnoreCase(String.valueOf(Genre.Country)))
+                    genre = Genre.Country;
+                else if (albumGenre.equalsIgnoreCase(String.valueOf(Genre.Jazz)))
+                    genre = Genre.Jazz;
+                else if (albumGenre.equalsIgnoreCase(String.valueOf(Genre.Pop)))
+                    genre = Genre.Pop;
+                    //genre = Genre.valueOf(albumGenre);
+                //}
+                else
+                    genre = Genre.Unknown;
+                myAlbum.setTitle(title);
+                myAlbum.setArtist(artist);
+                myAlbum.setGenre(genre);
+                myAlbum.setReleaseDate(date);
+                myAlbum.setIsAvailable(true);
+                boolean returnVal = myCollection.add(myAlbum);
+                if (returnVal)
+                    System.out.println(myAlbum.toString() + "::is available >> added.");
+                else
+                    System.out.println(myAlbum.toString() + "::is available >> is already in the collection.");
+            }
             else
-                System.out.println(myAlbum.toString() + "::is available >> is already in the collection.");
+                System.out.println("Invalid Date!");
         }
         else if (command.equals("D")) {
             myAlbum.setTitle(title);
@@ -96,11 +113,20 @@ public class CollectionManager {
                 System.out.println(myAlbum.toString() + " >> return cannot be completed.");
             //myAlbum.toString();
         }
-        else if (command.equals("P"))
+        else if (command.equals("P")) {
+            System.out.println("*List of albums in the collection.");
             myCollection.print();
-        else if (command.equals("PD"))
+            System.out.println("*End of list");
+        }
+        else if (command.equals("PD")) {
+            System.out.println("*Album collection by the release dates.");
             myCollection.printByReleaseDate();
-        else if (command.equals("PG"))
+            System.out.println("*End of list");
+        }
+        else if (command.equals("PG")) {
+            System.out.println("*Album collection by genre.");
             myCollection.printByGenre();
+            System.out.println("*End of list");
+        }
     }
 }
