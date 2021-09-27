@@ -56,11 +56,11 @@ public class Collection {
         if(index == -1) {
             return false;
         }
-        boolean returnVal = albums[index].rentOut();
-        if (returnVal)
-            System.out.println(albums[index].toString() + " >> lending out and set to not available.");
-        return returnVal;
-        //return albums[index].rentOut();
+        //boolean returnVal = albums[index].rentOut();
+        //if (returnVal)
+            //System.out.println(albums[index].toString() + " >> lending out and set to not available.");
+        //return returnVal;
+        return albums[index].rentOut();
 
     } //set to not available
 
@@ -69,7 +69,7 @@ public class Collection {
         if(index == -1) {
             return false; //System.out.println(album.toString() + " >> return cannot be completed.");
         }
-        System.out.println(album.toString() + " >> returning and set to available.");
+        System.out.println(album.toString());
         return albums[index].returnAlbum();
     } //set to available
 
@@ -79,7 +79,12 @@ public class Collection {
             if(albums[i] == null){//if position is null then skip
                 continue;
             }
-            System.out.println(albums[i]);
+            String avail;
+            if (albums[i].getIsAvailable())
+                avail = "is available";
+            else
+                avail = "is not available";
+            System.out.println(albums[i]+"::"+avail);
         }
         System.out.println("*End of list");
     } //display the list without specifying the order

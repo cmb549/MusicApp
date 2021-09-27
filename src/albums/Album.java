@@ -17,7 +17,7 @@ public class Album {
         this.isAvailable = true;
     }
 
-   public Album() {
+    public Album() {
         //this.title = null;
         //this.artist = null;
         //this.genre = null;
@@ -28,35 +28,45 @@ public class Album {
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getArtist() {
         return artist;
     }
+
     public void setArtist(String artist) {
         this.artist = artist;
     }
+
     public Genre getGenre() {
         return genre;
     }
+
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
+
     public Date getReleaseDate() {
         return releaseDate;
     }
+
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
+
     public void setIsAvailable(boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
+
     public boolean getIsAvailable() {
         return isAvailable;
     }
+
     public boolean rentOut() {
-        if(!isAvailable) { // if unavailable
+        if (!isAvailable) { // if unavailable
             return false;
         }
         isAvailable = false;
@@ -64,7 +74,7 @@ public class Album {
     }
 
     public boolean returnAlbum() {
-        if(isAvailable) { // if available
+        if (isAvailable) { // if available
             return false;
         }
         isAvailable = true;
@@ -74,30 +84,34 @@ public class Album {
     //...
     @Override
     public boolean equals(Object obj) {
-        Album newAlbum = (Album)obj;
+        Album newAlbum = (Album) obj;
         if (newAlbum.title.equals(this.title) && newAlbum.artist.equals(this.artist))
             return true;
         else
             return false;
     }
-//...
+
+    //...
     @Override
     public String toString() {
         String avail;
+        String retString = title + "::" + artist;
+        /*
         if (isAvailable)
             avail = "is available";
         else
             avail = "is not available";
-        String myGenre="";
-        String myRelDate="";
-        if (genre!=null){
+         */
+        String myGenre = "";
+        String myRelDate = "";
+        if (genre != null) {
             myGenre = genre.name();
+            retString = retString + "::" + myGenre;
         }
-        if (releaseDate!=null){
+        if (releaseDate != null) {
             myRelDate = releaseDate.toString();
+            retString = retString + "::" + myRelDate;
         }
-        //return title + "::" + artist + "::" + genre.name() + "::" + releaseDate.toString() + "::" + avail;
-        return title + "::" + artist + "::" + myGenre + "::" + myRelDate + "::" + avail;
+        return retString;
     }
-
 }
