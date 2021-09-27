@@ -28,13 +28,11 @@ public class Collection {
     } //increase the capacity of the array list by 4
     public boolean add(Album album) {
         if(find(album) != -1) {
-            System.out.println(album.toString() + " >> is already in the collection.");
             return false;
         }
         for(int i = 0; i < albums.length; i++){
             if(albums[i] == null){//empty position
                 albums[i] = album;//save at that position
-                System.out.println(albums[i].toString() + " >> added.");
                 return true;
             }
         }
@@ -47,32 +45,48 @@ public class Collection {
         if(index == -1){
             return false;
         }
+        album = albums[index];
         albums[index] = null;
+        //System.out.println(album.toString() + " >> deleted.");
         return true;
     }
+
     public boolean lendingOut(Album album) {
         int index = find(album);
-        if(index == -1){
+        if(index == -1) {
             return false;
         }
+        //boolean returnVal = albums[index].rentOut();
+        //if (returnVal)
+        //System.out.println(albums[index].toString() + " >> lending out and set to not available.");
+        //return returnVal;
         return albums[index].rentOut();
+
     } //set to not available
+
     public boolean returnAlbum(Album album) {
         int index = find(album);
-        if(index == -1){
-            return false;
+        if(index == -1) {
+            return false; //System.out.println(album.toString() + " >> return cannot be completed.");
         }
+        System.out.println(album.toString());
         return albums[index].returnAlbum();
     } //set to available
+
     public void print() {
-        System.out.println("*Start of Album List*");
+        System.out.println("*List of albums in the collection.");
         for(int i = 0; i < albums.length; i++){
             if(albums[i] == null){//if position is null then skip
                 continue;
             }
-            System.out.println(albums[i]);
+            String avail;
+            if (albums[i].getIsAvailable())
+                avail = "is available";
+            else
+                avail = "is not available";
+            System.out.println(albums[i]+"::"+avail);
         }
-        System.out.println("*End of Album List*");
+        System.out.println("*End of list");
     } //display the list without specifying the order
     public void printByReleaseDate() {
        /*Alums[] copy = new Album[albums.length];
@@ -81,7 +95,7 @@ public class Collection {
         }*/ // if we care about order after printing
         int n = albums.length;
         for(int i = 0; i < n - 1; i++){
-            for(int j = 0; j < n - i - 1; j++){
+            for(int j = 1; j < n - i - 1; j++){
                 if(albums[j] == null){
                     Album temp = albums[j];
                     albums[j] = albums[j+1];
@@ -102,32 +116,32 @@ public class Collection {
 
     private boolean sortGenre(Genre first, Genre second){//return true if first > second
         switch(first){
-            case Classical:
-                if(second == Genre.Country || second == Genre.Jazz || second == Genre.Pop || second == Genre.Unknown){
+            case CLASSICAL:
+                if(second == Genre.COUNTRY || second == Genre.JAZZ || second == Genre.POP || second == Genre.UNKNOWN){
                     return false;
                 } else {
                     return true;
                 }
-            case Country:
-                if(second == Genre.Classical){
+            case COUNTRY:
+                if(second == Genre.CLASSICAL){
                     return true;
                 } else {
                     return false;
                 }
-            case Jazz:
-                if(second == Genre.Classical || second == Genre.Country){
+            case JAZZ:
+                if(second == Genre.CLASSICAL || second == Genre.COUNTRY){
                     return true;
                 } else {
                     return false;
                 }
-            case Pop:
-                if(second == Genre.Classical || second == Genre.Country || second == Genre.Jazz){
+            case POP:
+                if(second == Genre.CLASSICAL || second == Genre.COUNTRY || second == Genre.JAZZ){
                     return true;
                 } else {
                     return false;
                 }
-            case Unknown:
-                if(second == Genre.Classical || second == Genre.Country || second == Genre.Jazz || second == Genre.Pop){
+            case UNKNOWN:
+                if(second == Genre.CLASSICAL || second == Genre.COUNTRY || second == Genre.JAZZ || second == Genre.POP){
                     return true;
                 } else {
                     return false;
@@ -140,7 +154,7 @@ public class Collection {
     public void printByGenre() {
         int n = albums.length;
         for(int i = 0; i < n - 1; i++){
-            for(int j = 0; j < n - i - 1; j++){
+            for(int j = 1; j < n - i - 1; j++){
                 if(albums[j] == null){
                     Album temp = albums[j];
                     albums[j] = albums[j+1];

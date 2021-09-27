@@ -60,25 +60,41 @@ public class CollectionManager {
             myAlbum.setGenre(genre);
             myAlbum.setReleaseDate(date);
             myAlbum.setIsAvailable(true);
-            myCollection.add(myAlbum);
+            boolean returnVal = myCollection.add(myAlbum);
+            if (returnVal)
+                System.out.println(myAlbum.toString() + "::is available >> added.");
+            else
+                System.out.println(myAlbum.toString() + "::is available >> is already in the collection.");
         }
         else if (command.equals("D")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
-            myCollection.remove(myAlbum);
+            boolean returnVal = myCollection.remove(myAlbum);
+            if (returnVal)
+                System.out.println(myAlbum.toString() + " >> deleted.");
+            else
+                System.out.println(myAlbum.toString() + " >> is not in the collection.");
         }
         else if (command.equals("L")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
-            if (myAlbum.getIsAvailable())
-                myCollection.lendingOut(myAlbum);
+            //if (myAlbum.getIsAvailable())
+            boolean returnVal = myCollection.lendingOut(myAlbum);
+            if (returnVal)
+                System.out.println(myAlbum.toString() + " >> lending out and set to not available.");
+            else
+                System.out.println(myAlbum.toString() + " >> is not in the collection.");
         }
         else if (command.equals("R")) {
             myAlbum.setTitle(title);
             myAlbum.setArtist(artist);
-            if (!myAlbum.getIsAvailable())
-                myCollection.returnAlbum(myAlbum);
-            myAlbum.toString();
+            //if (!myAlbum.getIsAvailable())
+            boolean returnVal = myCollection.returnAlbum(myAlbum);
+            if (returnVal)
+                System.out.println(myAlbum.toString() + " >> returning and set to available.");
+            else
+                System.out.println(myAlbum.toString() + " >> return cannot be completed.");
+            //myAlbum.toString();
         }
         else if (command.equals("P"))
             myCollection.print();
@@ -86,5 +102,5 @@ public class CollectionManager {
             myCollection.printByReleaseDate();
         else if (command.equals("PG"))
             myCollection.printByGenre();
-        }
+    }
 }
